@@ -1,1 +1,8 @@
 Source code used in our PloS CB paper.
+
+
+To install (assumes code is in maphylogeny/):
+
+R CMD build maphylogeny/
+R CMD install maphylogeny_1.0.tar.gz
+
