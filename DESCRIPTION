@@ -1,0 +1,11 @@
+Package: maphylogeny
+Type: Package
+Title: Gene Expression Phylogenies 
+Version: 1.0
+Date: 2011-02-23
+Author: Markus
+Maintainer: <markus@jimmy.harvard.edu>
+Depends: ape, bioDist
+Description: Fancy hierarchical clustering of microarray data based on phylogenetic methods.   
+License: GPL
+LazyLoad: yes
