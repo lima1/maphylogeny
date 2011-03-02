@@ -1,6 +1,6 @@
 maphylo_bootstrap <-
 function(M, group=c(), bootstrap = 100,
-bootstrap_groups=FALSE,r=seq(.5,1.4,by=.1), dm="spearman")
+bootstrap_groups=FALSE,r=seq(.5,1.4,by=.1), dm="pearson")
 {
     if (length(group) == 0) group = as.factor(1:ncol(M))
     if (!is.factor(group)) stop("group not a factor")
@@ -23,10 +23,13 @@ bootstrap_groups=FALSE,r=seq(.5,1.4,by=.1), dm="spearman")
     if (length(group) != length(levels(group))) Mss = combine_matrix(M)
     
     do_test <- function(ri) {
+        mysample = Mss
+
         if (bootstrap_groups) 
-            mysample = combine_matrix(M[sample(nrow(Mss), ri, replace=TRUE),])
-        else 
-            mysample = Mss[sample(nrow(Mss), ri, replace=TRUE),]
+            mysample = combine_matrix(M)
+
+        if (bootstrap > 0)
+            mysample = mysample[sample(nrow(mysample), ri, replace=TRUE),]
 
         if (dm == "euclidean") {
             d = dist(t(mysample), method="euclidean")

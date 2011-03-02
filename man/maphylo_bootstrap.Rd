@@ -9,7 +9,8 @@ calculates the pairwise distances for each bootstrap replicate. Returns a
 list of distance matrices.
 }
 \usage{
-maphylo_bootstrap(M, group = c(), bootstrap = 100, bootstrap_groups = FALSE, r = seq(0.5, 1.4, by = 0.1), dm = "spearman")
+maphylo_bootstrap(M, group = c(), bootstrap = 100, bootstrap_groups = FALSE, r
+= seq(0.5, 1.4, by = 0.1), dm = "pearson")
 }
 \arguments{
   \item{M}{
@@ -34,7 +35,7 @@ maphylo_bootstrap(M, group = c(), bootstrap = 100, bootstrap_groups = FALSE, r =
 }
   \item{dm}{
     The distance metric. Valid are "euclidean", "spearman", "tau" and
-    "correlation".
+    "pearson".
 }
 }
 \value{
