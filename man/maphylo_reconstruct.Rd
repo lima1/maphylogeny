@@ -17,14 +17,17 @@ maphylo_reconstruct(dists, pm = nj, ...)
 }
   \item{pm}{
     The pylogenetic reconstruction method. First argument takes a distance
-    matrix. See the \code{\link[ape:ape-package]{ape}}.
+    matrix. See the \code{ape} package.
 }
   \item{\dots}{
     Further arguments for the pm method.
 }
 }
 \value{
-A tree.
+A list of trees.
+}
+\details{
+See \code{\link{maphylo_bootstrap}} for
 }
 \references{
 Citation: Riester M, Stephan-Otto Attolini C, Downey RJ, Singer S, Michor F
@@ -45,4 +48,13 @@ M. Riester
 function(dists,pm=nj, ...) {
     lapply(dists, function(dist) pm(dist$dist, ...))
   }
+
+\dontrun{
+    # use Neighbor Joining (NJ)
+    trees = maphylo_reconstruct(dists)
+
+    # FastMe
+    trees = maphylo_reconstruct(dists, pm = fastme.bal)
+
+}
 }
