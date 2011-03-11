@@ -14,7 +14,7 @@ maphylo_bootstrap(M, group = c(), bootstrap = 100, bootstrap_groups = FALSE, r
 }
 \arguments{
   \item{M}{
-    An ExpressionSet.
+    An ExpressionSet or matrix.
 }
   \item{group}{
    A factor, can be used to group samples. Expression values are then
@@ -63,14 +63,15 @@ data(Golub_Merge)
 sampleNames(Golub_Merge) = paste(sampleNames(Golub_Merge),
     Golub_Merge$ALL.AML) 
 
+\dontrun{
+# Typically it is recommended to filter uninformative genes, for
+# example with a low variance filter.
+library(genefilter)
+Golub_Merge = nsFilter(Golub_Merge)$eset
+}
+
 # bootstrap
 dists = maphylo_bootstrap(Golub_Merge,r=c(1))
-
-# use Neighbor-Joining to reconstruct trees
-trees = maphylo_reconstruct(dists)
-
-# plot the first tree
-plot(trees[[1]])
 
 \dontrun{
 library(snow)
@@ -79,5 +80,15 @@ cl = makeMPIcluster(10)
 dists = maphylo_bootstrap(Golub_Merge,r=c(1),bootstrap=1000,snow=cl)
 stopCluster(cl)
 }
+
+# use Neighbor-Joining to reconstruct trees
+trees = maphylo_reconstruct(dists)
+
+# plot the first tree
+plot(trees[[1]])
+
+# Write the trees in NEXUS format. Now analyze the tree (in Dendroscope for
+# example). 
+write.nexus(trees, file="maphylo.nxs")
 
 }

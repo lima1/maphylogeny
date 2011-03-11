@@ -4,22 +4,25 @@ bootstrap_groups=FALSE,r=seq(.5,1.4,by=.1), dm="pearson", snow=FALSE)
 {
     if (length(group) == 0) group = as.factor(1:ncol(M))
     if (!is.factor(group)) stop("group not a factor")
-
-    Mss = exprs(M)
+    
+    if ("ExpressionSet" %in% class(M) ) M = exprs(M)
     
     combine_matrix <- function(Mx) {
-        t = sapply(levels(group), function(x) sampleNames(Mx)[group %in%
+        t = sapply(levels(group), function(x) colnames(Mx)[group %in%
         x])
         My = sapply(t, function(x) { 
             if (length(x) > 1) { 
                 y=x 
                 if (bootstrap_groups) y = sample(x,replace=TRUE)
-                return(apply(exprs(Mx[,y]),1,mean)) 
+                return(apply(Mx[,y],1,mean)) 
              }
-             else return(exprs(Mx[,x]))} )
-        rownames(My) = featureNames(Mx)     
+             else return(Mx[,x])} )
+        rownames(My) = rownames(Mx)     
         My
     }        
+    
+    # Mss contains the group-collapsed expression data
+    Mss = M
     if (length(group) != length(levels(group))) Mss = combine_matrix(M)
     
     do_test <- function(ri) {
