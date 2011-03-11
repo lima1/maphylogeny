@@ -1,6 +1,6 @@
 maphylo_bootstrap <-
 function(M, group=c(), bootstrap = 100,
-bootstrap_groups=FALSE,r=seq(.5,1.4,by=.1), dm="pearson")
+bootstrap_groups=FALSE,r=seq(.5,1.4,by=.1), dm="pearson", snow=FALSE)
 {
     if (length(group) == 0) group = as.factor(1:ncol(M))
     if (!is.factor(group)) stop("group not a factor")
@@ -31,20 +31,22 @@ bootstrap_groups=FALSE,r=seq(.5,1.4,by=.1), dm="pearson")
         if (bootstrap > 0)
             mysample = mysample[sample(nrow(mysample), ri, replace=TRUE),]
 
-        if (dm == "euclidean") {
-            d = dist(t(mysample), method="euclidean")
-        } else if (dm == "spearman") {
-            d = spearman.dist(t(mysample))
-        } else if (dm == "tau") {
-            d = tau.dist(t(mysample))
-        }
-        else        
-        d = as.dist((1-cor(mysample))/2)
+        d = switch(dm,
+            euclidean = dist(t(mysample), method="euclidean"),
+            spearman  = spearman.dist(t(mysample)),
+            tau       = tau.dist(t(mysample)),
+            pearson   = as.dist((1-cor(mysample))/2),
+            stop("Unknown distance metric"))
 
         list(dist=d,genes=row.names(mysample));
     }
 
     reps = as.vector(sapply(r,function(x) rep(nrow(M)*x,max(bootstrap,1),)))
-    dists = lapply(reps, function(i) do_test(i) )
+    if ("cluster" %in% class(snow)) 
+        dists = parLapply(snow, reps, do_test)
+    else    
+        dists = lapply(reps, do_test )
+
+    dists
 }
 

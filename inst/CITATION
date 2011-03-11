@@ -1,0 +1,17 @@
+citEntry(entry = "Article",
+    author = "Markus Riester and Camille Stephan-Otto Attolini and Robert J Downey and Samuel Singer and Franziska Michor",
+    title = "A differentiation-based phylogeny of cancer subtypes",
+    journal = "PLoS Comput Biol",
+    year = "2010",
+    volume = "6",
+    number = "5",
+    pages = "",
+    month = "May",
+    pmid = "20463876",
+    textVersion = paste(
+"Riester M, Stephan-Otto Attolini C, Downey RJ, Singer S, Michor F (2010)",
+"A Differentiation-Based Phylogeny of Cancer Subtypes. PLoS Comput ",
+"Biol 6(5):e1000777. doi:10.1371/journal.pcbi.1000777"
+    ),
+    doi = "10.1371/journal.pcbi.1000777"
+)

@@ -10,7 +10,7 @@ list of distance matrices.
 }
 \usage{
 maphylo_bootstrap(M, group = c(), bootstrap = 100, bootstrap_groups = FALSE, r
-= seq(0.5, 1.4, by = 0.1), dm = "pearson")
+= seq(0.5, 1.4, by = 0.1), dm = "pearson", snow = FALSE)
 }
 \arguments{
   \item{M}{
@@ -36,6 +36,10 @@ maphylo_bootstrap(M, group = c(), bootstrap = 100, bootstrap_groups = FALSE, r
   \item{dm}{
     The distance metric. Valid are "euclidean", "spearman", "tau" and
     "pearson".
+}
+  \item{snow}{
+    If specified, use the \code{snow} package for bootstrapping on a
+    cluster. 
 }
 }
 \value{
@@ -67,5 +71,13 @@ trees = maphylo_reconstruct(dists)
 
 # plot the first tree
 plot(trees[[1]])
+
+\dontrun{
+library(snow)
+# bootstrap on 10 cluster nodes
+cl = makeMPIcluster(10)
+dists = maphylo_bootstrap(Golub_Merge,r=c(1),bootstrap=1000,snow=cl)
+stopCluster(cl)
+}
 
 }
