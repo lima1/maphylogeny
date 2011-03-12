@@ -6,7 +6,8 @@
 maphylogeny - Gene Expression Phylogenies
 }
 \description{
-Fancy hierarchical clustering of microarray data based on phylogenetic methods.   
+Fancy hierarchical clustering of microarray data based on phylogenetic
+methods. Supports the \code{snow} package for bootstrapping on a cluster,
 }
 \details{
 \tabular{ll}{
@@ -14,7 +15,7 @@ Package: \tab maphylogeny\cr
 Type: \tab Package\cr
 Version: \tab 1.0\cr
 Date: \tab 2011-02-23\cr
-License: \tab What license is it under?\cr
+License: \tab GPL\cr
 LazyLoad: \tab yes\cr
 }
 }

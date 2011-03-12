@@ -8,13 +8,17 @@ Takes a list of distance matrices and reconstructs trees with the specified
 method.
 }
 \usage{
-maphylo_reconstruct(dists, pm = nj, ...)
+maphylo_reconstruct(dists, snow = FALSE, pm = nj, ...)
 }
 \arguments{
   \item{dists}{
     The list of distance matrices, typically obtained with
     \code{\link{maphylo_bootstrap}}.
 }
+  \item{snow}{
+    If specified, use the \code{snow} package for bootstrapping on a
+    cluster. 
+}    
   \item{pm}{
     The pylogenetic reconstruction method. First argument takes a distance
     matrix. See the \code{ape} package.
@@ -55,6 +59,9 @@ function(dists,pm=nj, ...) {
 
     # FastMe
     trees = maphylo_reconstruct(dists, pm = fastme.bal)
-
+    
+    # MPI
+    cl = makeMPIcluster(10)
+    trees = maphylo_reconstruct(dists, snow=cl, om = fastme.bal)
 }
 }
