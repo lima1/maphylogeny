@@ -31,7 +31,7 @@ maphylo_reconstruct(dists, snow = FALSE, pm = nj, ...)
 A list of trees.
 }
 \details{
-See \code{\link{maphylo_bootstrap}} for
+See \code{\link{maphylo_bootstrap}} for detailed examples.
 }
 \references{
 Citation: Riester M, Stephan-Otto Attolini C, Downey RJ, Singer S, Michor F
@@ -62,6 +62,6 @@ function(dists,pm=nj, ...) {
     
     # MPI
     cl = makeMPIcluster(10)
-    trees = maphylo_reconstruct(dists, snow=cl, om = fastme.bal)
+    trees = maphylo_reconstruct(dists, snow=cl, pm = fastme.bal)
 }
 }
