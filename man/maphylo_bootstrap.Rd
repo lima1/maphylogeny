@@ -87,6 +87,12 @@ stopCluster(cl)
 # use Neighbor-Joining to reconstruct trees
 trees = maphylo_reconstruct(dists)
 
+\dontrun{
+# it is also possible to reconstruct trees in parallel, especially useful 
+# for slower methods and large trees
+trees = maphylo_reconstruct(dists,snow=cl,pm=fastme.bal)
+}
+
 # plot the first tree
 plot(trees[[1]])
 
