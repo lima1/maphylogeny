@@ -77,6 +77,9 @@ dists = maphylo_bootstrap(Golub_Merge,r=c(1))
 library(snow)
 # bootstrap on 10 cluster nodes
 cl = makeMPIcluster(10)
+# use a thread-safe random number generator
+clusterSetupRNG(cl)
+
 dists = maphylo_bootstrap(Golub_Merge,r=c(1),bootstrap=1000,snow=cl)
 stopCluster(cl)
 }
