@@ -10,7 +10,7 @@ list of distance matrices.
 }
 \usage{
 maphylo_bootstrap(M, group = c(), bootstrap = 100, bootstrap_groups = FALSE, r
-= seq(0.5, 1.4, by = 0.1), dm = "pearson", snow = FALSE)
+= seq(0.5, 1.4, by = 0.1), dm = "pearson", snow = FALSE, na.rm = FALSE)
 }
 \arguments{
   \item{M}{
@@ -40,6 +40,9 @@ maphylo_bootstrap(M, group = c(), bootstrap = 100, bootstrap_groups = FALSE, r
   \item{snow}{
     If specified, use the \code{snow} package for bootstrapping on a
     cluster. 
+}
+  \item{na.rm}{
+    If \code{TRUE}, only rows without missing values are considered. 
 }
 }
 \value{

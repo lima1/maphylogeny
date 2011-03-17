@@ -1,11 +1,17 @@
 maphylo_bootstrap <-
 function(M, group=c(), bootstrap = 100,
-bootstrap_groups=FALSE,r=seq(.5,1.4,by=.1), dm="pearson", snow=FALSE)
+bootstrap_groups=FALSE,r=seq(.5,1.4,by=.1), dm="pearson", snow=FALSE,
+na.rm=FALSE)
 {
     if (length(group) == 0) group = as.factor(1:ncol(M))
     if (!is.factor(group)) stop("group not a factor")
     
     if ("ExpressionSet" %in% class(M) ) M = exprs(M)
+
+    if (na.rm) {
+        cc = complete.cases(M)
+        M = M[cc,]
+    }
     
     combine_matrix <- function(Mx) {
         t = sapply(levels(group), function(x) colnames(Mx)[group %in%
