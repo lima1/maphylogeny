@@ -103,4 +103,10 @@ plot(trees[[1]])
 # example). 
 write.nexus(trees, file="maphylo.nxs")
 
+\dontrun{
+# PHYLIP is supported as a quick and easy way to analyze the trees. Requires
+# the PHYLIP implementation in the EMBOSS extension EMBASSY.
+maphylo_consensus_phylip(trees, outfile="Golub")
+}
+
 }
